@@ -2,17 +2,28 @@
 # Reference: https://github.com/replicate/cog/blob/main/docs/python.md
 
 import cog
-# import torch
+import subprocess
+import tempfile
+from pathlib import Path
+
+def generate_image_slides(audio_file, out_file):
+    subprocess.call(
+        [
+            "python",
+            "generate.py",
+            "-p",
+            "",
+            "-ap",
+            audio_file,
+            "-o",
+            out_file,
+        ]
+    )
+    return out_file
+
 
 class Predictor(cog.Predictor):
-    def setup(self):
-      """Load the model into memory to make running multiple predictions efficient"""
-      # self.model = torch.load("./weights.pth")
-
-    @cog.input("image", type=cog.Path, help="Grayscale input image")
-    @cog.input("scale", type=float, default=1.5, help="Factor to scale image by")
-    def predict(self, image):
+    @cog.input("audio", type=cog.Path, help="Input audio file")
+    def predict(self, audio):
         """Run a single prediction on the model"""
-        # processed_input = preprocess(image)
-        # output = self.model(processed_input)
-        # return post_processing(output)
+        return generate_image_slides(audio, Path(tempfile.mkdtemp()) / "tmp.png")

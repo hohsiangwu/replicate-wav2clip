@@ -3,26 +3,49 @@
 
 build:
   # set to true if your model requires a GPU
-  gpu: false
+  gpu: true
+  cuda: "11.1"
 
   # a list of ubuntu apt packages to install
   system_packages:
-    # - "libgl1-mesa-glx"
-    # - "libglib2.0-0"
+    - "ffmpeg"
+    - "libsndfile1"
 
   # python version in the form '3.8' or '3.8.12'
-  python_version: "3.8"
+  python_version: "3.9"
 
   # a list of packages in the format <package-name>==<version>
   python_packages:
-    # - "numpy==1.19.4"
-    # - "torch==1.8.0"
-    # - "torchvision==0.9.0"
+    - "torch==1.9.0+cu111"
+    - "torchvision==0.10.0+cu111"
+    - "torchaudio==0.9.0 -f https://download.pytorch.org/whl/torch_stable.html"
+    - "ftfy==6.0.3"
+    - "regex==2021.11.10"
+    - "tqdm==4.62.3"
+    - "omegaconf==2.1.1"
+    - "pytorch-lightning==1.5.1"
+    - "IPython==7.29.0"
+    - "kornia==0.6.1"
+    - "imageio==2.10.4"
+    - "imageio-ffmpeg==0.4.5"
+    - "einops==0.3.2"
+    - "torch_optimizer==0.3.0"
+    - "librosa==0.8.1"
+    - "wav2clip==0.1.0"
   
   # commands run after the enviroment is setup
   run:
-    # - "echo env is ready!"
-    # - "echo another command if needed"
+    - "git clont 'https://github.com/descriptinc/lyrebird-wav2clip.git'"
+    - "git clone 'https://github.com/nerdyrodent/VQGAN-CLIP'"
+    - "cd VQGAN-CLIP"
+    - "git clone 'https://github.com/openai/CLIP'"
+    - "git clone 'https://github.com/CompVis/taming-transformers'"
+    - "cp ../lyrebird-wav2clip/scripts/VQGAN-CLIP/generate.py ."
+    - "mkdir checkpoints"
+    - "curl -L -o checkpoints/vqgan_imagenet_f16_16384.yaml -C - 'https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/files/?p=%2Fconfigs%2Fmodel.yaml&dl=1'"
+    - "curl -L -o checkpoints/vqgan_imagenet_f16_16384.ckpt -C - 'https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/files/?p=%2Fckpts%2Flast.ckpt&dl=1'"
+
+image: "r8.im/hohsiangwu/wav2clip"
 
 # predict.py defines how predictions are run on your model
 predict: "predict.py:Predictor"
