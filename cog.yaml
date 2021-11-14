@@ -35,7 +35,7 @@ build:
   
   # commands run after the enviroment is setup
   run:
-    - "git clont 'https://github.com/descriptinc/lyrebird-wav2clip.git'"
+    - "git clone 'https://github.com/descriptinc/lyrebird-wav2clip.git'"
     - "git clone 'https://github.com/nerdyrodent/VQGAN-CLIP'"
     - "cd VQGAN-CLIP"
     - "git clone 'https://github.com/openai/CLIP'"
