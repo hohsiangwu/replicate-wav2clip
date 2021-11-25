@@ -3,7 +3,7 @@
 
 build:
   # set to true if your model requires a GPU
-  gpu: false
+  gpu: true
   cuda: "11.1"
 
   # a list of ubuntu apt packages to install
@@ -32,14 +32,14 @@ build:
     - "torch_optimizer==0.3.0"
     - "librosa==0.8.1"
     - "wav2clip==0.1.0"
-  
+
   # commands run after the enviroment is setup
   run:
-    - "git clone 'https://github.com/openai/CLIP' /src/CLIP"
-    - "git clone 'https://github.com/CompVis/taming-transformers' /src/taming-transformers"
-    - "mkdir /src/checkpoints"
-    - "curl -L -o /src/checkpoints/vqgan_imagenet_f16_16384.yaml -C - 'https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/files/?p=%2Fconfigs%2Fmodel.yaml&dl=1'"
-    - "curl -L -o /src/checkpoints/vqgan_imagenet_f16_16384.ckpt -C - 'https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/files/?p=%2Fckpts%2Flast.ckpt&dl=1'"
+    - "git clone 'https://github.com/openai/CLIP' /repos/CLIP"
+    - "git clone 'https://github.com/CompVis/taming-transformers' /repos/taming-transformers"
+    - "mkdir /checkpoints"
+    - "curl -L -o /checkpoints/vqgan_imagenet_f16_16384.yaml -C - 'https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/files/?p=%2Fconfigs%2Fmodel.yaml&dl=1'"
+    - "curl -L -o /checkpoints/vqgan_imagenet_f16_16384.ckpt -C - 'https://heibox.uni-heidelberg.de/d/a7530b09fed84f80a887/files/?p=%2Fckpts%2Flast.ckpt&dl=1'"
 
 image: "r8.im/hohsiangwu/wav2clip"
 
